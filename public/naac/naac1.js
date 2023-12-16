@@ -53,15 +53,16 @@ const applyFilter = (data, criteriaId, subCriteriaId) => {
 
 const updateUrlByData = (criteriaId, subCriteriaId) => {
     const sanitizedCriteriaId = criteriaId.replace(/\s+/g, '_');
-    
+
     // Extract the current path
     let currentPath = window.location.pathname;
 
     // Remove existing criteria and sub-criteria if present
     currentPath = currentPath.replace(new RegExp(`/${sanitizedCriteriaId}/[^/]+`), '');
 
-    // Add a forward slash between criteria and sub-criteria
-    const updatedPath = `${currentPath}/${sanitizedCriteriaId}/${subCriteriaId}`;
+    // Adjust the updated path based on whether the current path already ends with a slash
+    const separator = currentPath.endsWith('/') ? '' : '/';
+    const updatedPath = `${currentPath}${separator}${sanitizedCriteriaId}/${subCriteriaId}`;
 
     // Use an empty string as the title in pushState
     window.history.pushState({ criteriaId: sanitizedCriteriaId, subCriteriaId }, '', updatedPath);
