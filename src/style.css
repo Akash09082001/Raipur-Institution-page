@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.swiper-wrapper {
+    -webkit-transition-timing-function: linear !important;
+    -o-transition-timing-function: linear !important;
+    transition-timing-function: linear !important;
+}
+
+.swiper-slide {
+    @apply overflow-hidden bg-contain bg-no-repeat items-center justify-center text-base;
+}
+
+.swiper-slide img {
+    @apply h-full w-full aspect-video object-contain rounded-md mx-auto flex;
+}
+
+.card-scroll::-webkit-scrollbar {
+    @apply h-1 w-2;
+}
+
+.card-scroll::-webkit-scrollbar-track {
+    background: #8888882e;
+    border-radius: 5px;
+}
+
+.card-scroll::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #A91D54;
+}
+
+.program a svg{
+    rotate: 0deg;
+}
+.program:hover a svg{
+    rotate: 180deg;
+}
+.program:hover .program-list {
+    display: flex;
+    background: white;
+}
+.program:hover .program-list li:hover a svg{
+    rotate: 0deg;
+}
+
+.program:hover .program-list li:hover .program-list-items {
+    display: flex;
+    background: white;
+}
+.program:hover .program-list li:hover .program-list-items li:hover a svg{
+    rotate: 180deg;
+
+}
+.program:hover .program-list li:hover .program-list-items li:hover .program-list-items-value {
+    display: flex;
+    background: white;
+}
+.mobile-program-details summary span svg{
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+}
+.mobile-program-details[open] summary span svg{
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+}
+.mobile-program-details[open] div ul li .mobile-occupation-details summary span svg{
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+}
+.mobile-program-details[open] div ul li .mobile-occupation-details[open] summary span svg{
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+}
+.mobile-program-details[open] div ul li .mobile-occupation-details div ul li .mobile-specilazation-details summary span svg{
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+}
+.mobile-program-details[open] div ul li .mobile-occupation-details[open] div ul li .mobile-specilazation-details[open] summary span svg{
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+}
