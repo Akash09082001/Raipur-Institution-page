@@ -53,10 +53,24 @@ const updateUrlByData = (criteriaId, subCriteriaId) => {
 
     // Update the URL only if both criteria and sub-criteria are not already present
     if (!criteriaInUrl) {
-        const updatedUrl = `${getUrlOrigin}+${sanitizedCriteriaId}/${subCriteriaId}`;
+        // Add a forward slash between criteria and sub-criteria
+        const updatedUrl = `${getUrlOrigin}${sanitizedCriteriaId}/${subCriteriaId}`;
+
+        // Use an empty string as the title in pushState
         window.history.pushState({ criteriaId: sanitizedCriteriaId, subCriteriaId }, '', updatedUrl);
+
+        // Call a function to render data based on the new URL
+        renderData(sanitizedCriteriaId, subCriteriaId);
     }
 };
+
+// Assume you have a function to render data based on the URL
+const renderData = (criteriaId, subCriteriaId) => {
+    console.log(`Rendering data for ${criteriaId}/${subCriteriaId}`);
+    const filterData = applyFilter(data, criteriaId, subCriteriaId)
+    displayResults(filterData)
+};
+
 
 const showBtn = document.querySelectorAll('.showBtn');
 
@@ -75,7 +89,7 @@ showBtn.forEach(button => {
 
         // update url by on click of button id data-criteria-id and data-subcriteria-id
 
-        updateUrlByData(criteriaId, subCriteriaId);
+        // updateUrlByData(criteriaId, subCriteriaId);
 
 
         fetch('https://itmuniversity.org/naac/data.json')
@@ -83,7 +97,7 @@ showBtn.forEach(button => {
             .then(data => {
                 // console.log(data);
                 const filterData = applyFilter(data, criteriaId, subCriteriaId)
-
+                updateUrlByData(criteriaId, subCriteriaId);
                 // console.log(filterData);
                 displayResults(filterData)
             })
