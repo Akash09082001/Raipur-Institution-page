@@ -53,7 +53,7 @@ const updateUrlByData = (criteriaId, subCriteriaId) => {
 
     // Update the URL only if both criteria and sub-criteria are not already present
     if (!criteriaInUrl) {
-        const updatedUrl = `${getUrlOrigin}/${sanitizedCriteriaId}/${subCriteriaId}`;
+        const updatedUrl = `${getUrlOrigin} + ${sanitizedCriteriaId}/${subCriteriaId}`;
         window.history.pushState({ criteriaId: sanitizedCriteriaId, subCriteriaId }, '', updatedUrl);
     }
 };
