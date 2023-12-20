@@ -3,12 +3,16 @@ const mobileMenu = document.getElementById("mobile-nav");
 const openButton = document.getElementById("open");
 const closeButton = document.getElementById("close");
 
+// Variable to store button information
+let storedButtonInfo = null;
+
 // open menu
 function openMenu() {
     mobileMenu.style.display = "flex";
     openButton.style.display = "none";
     closeButton.style.display = "block";
 }
+
 function closeMenu() {
     mobileMenu.style.display = "none";
     openButton.style.display = "block";
@@ -20,7 +24,7 @@ const handleButtonClick = (button) => {
     const subCriteriaId = button.getAttribute('data-subcriteria-id');
 
     // Fetch data from the server based on criteria and sub-criteria
-    fetch(`https://itmuniversity.org/naac/data.json`) // Update the path to your JSON file
+    fetch(`https://itmuniversity.org/naac/data.json`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -50,12 +54,12 @@ const applyFilter = (data, criteriaId, subCriteriaId) => {
         const subCriteria = criteria.data.find(subItem => subItem.id === subCriteriaId);
 
         if (subCriteria) {
-            return subCriteria
-                .data;
+            return subCriteria.data;
         }
     }
     return [];
 };
+
 const updateUrlByData = (criteriaId, subCriteriaId) => {
     const sanitizedCriteriaId = criteriaId.replace(/\s+/g, '_');
     // Extract the current path
@@ -68,8 +72,11 @@ const updateUrlByData = (criteriaId, subCriteriaId) => {
     const separator = currentPath.endsWith('/') ? '' : '/';
     const updatedPath = `${currentPath}${separator}${sanitizedCriteriaId}/${subCriteriaId}`;
 
+    // Store button information in the variable
+    storedButtonInfo = { criteriaId: sanitizedCriteriaId, subCriteriaId };
+
     // Use an empty string as the title in pushState
-    window.history.pushState({ criteriaId: sanitizedCriteriaId, subCriteriaId }, '', updatedPath);
+    window.history.pushState(storedButtonInfo, '', updatedPath);
 };
 
 const resultContainer = document.getElementById("dataContainer");
@@ -99,3 +106,78 @@ function displayResults(filteredData) {
     resultContainer.innerHTML = '';
     resultContainer.appendChild(resultList);
 }
+
+// Function to render data based on stored button information
+const renderDataFromUrl = () => {
+    const { criteriaId, subCriteriaId } = storedButtonInfo || {};
+
+    if (criteriaId && subCriteriaId) {
+        // Fetch data based on stored button information
+        fetch(`https://itmuniversity.org/naac/data.json`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const filterData = applyFilter(data, criteriaId, subCriteriaId);
+                displayResults(filterData);
+                createDynamicPage(criteriaId, subCriteriaId, filterData);
+            })
+            .catch(error => console.error('Error fetching data:', error.message));
+    }
+};
+
+const createDynamicPage = (criteriaId, subCriteriaId, data) => {
+    // Create a new window for dynamic content
+    const newWindow = window.open('', '_blank');
+
+    if (newWindow) {
+        try {
+            console.log('Creating dynamic page:', criteriaId, subCriteriaId);
+            // Generate the HTML content based on the data
+            const pageContent = generatePageContent(data);
+
+            // Set the HTML content of the new window
+            newWindow.document.write(pageContent);
+            console.log('Dynamic page created successfully');
+        } catch (error) {
+            console.error('Error creating dynamic page:', error.message);
+        }
+    } else {
+        console.error('Failed to open a new window');
+    }
+};
+
+
+const generatePageContent = (data) => {
+    // Generate the HTML content based on the data
+    // Customize this based on your specific needs
+    return `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="assets/styles.css">
+            <title>Dynamic Page</title>
+        </head>
+        <body>
+            <h1>Dynamic Page Content</h1>
+            <!-- Customize the content based on your data -->
+            <ul>
+                ${data.map(item => `<li>${item.name}</li>`).join('')}
+            </ul>
+            <script src="../../naac2.js"></script>
+        </body>
+        </html>
+    `;
+};
+
+// If the page is accessed directly without using the back/forward buttons,
+// or if the back/forward buttons are used, call renderDataFromUrl to handle the initial state
+window.addEventListener('popstate', renderDataFromUrl);
+renderDataFromUrl();  // Call it immediately on page load
+
+// ... (remaining code remains unchanged)

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="https://itmuniversity.org/naac/style.css">
+</head>
+
+<body>
+
+    <div id="dataContainer"></div>
+
+    <script>
+        const criteriaId = 'Criteria 1 4';
+        const subCriteriaId = '4.3.2';
+        window.onload = function () {
+            fetch('https://itmuniversity.org/naac/data.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const filterData = applyFilter(data, criteriaId, subCriteriaId)
+                    displayResults(filterData)
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error.message);
+                });
+        };
+        const applyFilter = (data, criteriaId, subCriteriaId) => {
+            const criteria = data.find(item => item.id === criteriaId);
+
+            if (criteria) {
+                const subCriteria = criteria.data.find(subItem => subItem.id === subCriteriaId);
+
+                if (subCriteria) {
+                    return subCriteria.data;
+                }
+            }
+
+            return [];
+        }
+
+        const resultContainer = document.getElementById("dataContainer")
+
+        function displayResults(filterData) {
+            // Assuming you want to display data in a list
+            const resultList = document.createElement('ul');
+            resultList.setAttribute('class', 'grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 w-fit mx-auto gap-3')
+
+            filterData.forEach(item => {
+                const listItem = document.createElement('li');
+                // Your HTML content goes here
+                listItem.innerHTML = `
+                <a class="flex h-fit w-72 max-w-xs hover:shadow-md rounded-md" href=${item.url} target="_blank">
+                    <div class="flex h-28 w-full items-center justify-center gap-4 rounded-md bg-white px-5 py-2">
+                        <div class="flex w-1/5">
+                            <img class="h-12 w-9" src="https://itmuniversity.org/naac/assets/icon/pdf-icon.png" alt="" />
+                        </div>
+                        <div class="flex w-4/5">
+                            <h3 class="flex flex-wrap">${item.name}</h3>
+                        </div>
+                    </div>
+                </a>
+                `;
+                resultList.appendChild(listItem);
+            });
+
+            // Clear previous content and append the new list to the result container
+            resultContainer.innerHTML = '';
+            resultContainer.appendChild(resultList);
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

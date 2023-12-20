@@ -132,7 +132,7 @@ function displayResults(filteredData) {
           <a class="flex h-fit w-72 max-w-xs hover:shadow-md rounded-md" href=${item.url} target="_blank">
               <div class="flex h-28 w-full items-center justify-center gap-4 rounded-md bg-white px-5 py-2">
                   <div class="flex w-1/5">
-                      <img class="h-12 w-9" src="assets/icon/pdf-icon.png" alt="" />
+                      <img class="h-12 w-9" src="https://itmuniversity.org/naac/assets/icon/pdf-icon.png" alt="" />
                   </div>
                   <div class="flex w-4/5">
                       <h3 class="flex flex-wrap">${item.name}</h3>

@@ -63,6 +63,9 @@ module.exports = {
       aspectRatio: {
         '16/9': '960 / 540',
       },
+      inset:{
+        '22':'90px'
+      },
       fontSize:{
         '2xl+': ['28px', '34px'],
         '4xl+': ['36px', '40px'],
