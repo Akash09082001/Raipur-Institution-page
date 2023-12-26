@@ -17,7 +17,7 @@
 }
 
 .swiper-slide img {
-    @apply h-full w-full aspect-video object-contain rounded-md mx-auto flex;
+    @apply h-full w-full aspect-video object-contain object-center rounded-md mx-auto flex;
 }
 
 .card-scroll::-webkit-scrollbar {
@@ -93,14 +93,14 @@ details>summary::-webkit-details-marker {
     display: none;
 }
 
-details[open] summary span svg {
-    transform: rotate(180deg);
+.details summary span {
+    transition: .5s transform ease-in-out;
 }
 
-details[open] div ul li details summary span svg {
+.details[closed] summary span {
     transform: rotate(0deg);
 }
 
-details[open] div ul li details[open] summary span svg {
+.details[open] summary span {
     transform: rotate(180deg);
 }

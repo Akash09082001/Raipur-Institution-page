@@ -212,6 +212,12 @@ document.addEventListener("DOMContentLoaded", function () {
                                                         IQAC
                                                     </a>
                                                 </li>
+                                                <li class="relative flex  hover:shadow-sm w-full">
+                                                    <button onclick="openModal()"
+                                                        class="relative flex px-3 py-3 group text-left hover:text-white hover:bg-brand-red rounded-md w-full">
+                                                        Student Complaint Management System
+                                                    </button>
+                                                </li>
                                             </ul>
                                         </li> 
                                     </ul>
@@ -627,7 +633,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     </ul>
                                 </li>
                                 <li id="Media Coverage" class="program relative flex w-fit flex-col h-fit">
-                                    <a href="https://www.itmuniversity.org/faculty.html"
+                                    <a href="https://www.itmuniversity.org/mediacoverage.html"
                                         class="flex h-fit px-3 py-2 rounded-md items-center group hover:text-brand-red">
                                         <span>Media Coverage</span>
                                     </a>
@@ -868,6 +874,13 @@ document.addEventListener("DOMContentLoaded", function () {
                                                                             class="flex w-full px-5 py-3">
                                                                             IQAC
                                                                         </span>
+                                                                    </li>
+                                                                    <li
+                                                                        class="flex w-full cursor-pointer transition-all rounded-md text-gray-700 hover:bg-brand-red hover:text-white ">
+                                                                        <button onclick="openModal()"
+                                                                            class="flex w-full px-5 py-3">
+                                                                            Student Complaint Management System
+                                                                        </button>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -1488,7 +1501,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <li
                                         class="flex w-full transition-all rounded-md text-gray-700 hover:bg-brand-red hover:text-white">
                                         <a class="flex w-full px-5 py-3"
-                                            href="https://www.itmuniversity.org/faculty.html">Media Coverage<a>
+                                            href="https://www.itmuniversity.org/mediacoverage.html">Media Coverage<a>
                                     </li>
                                     <li
                                         class="flex w-full transition-all rounded-md text-gray-700 hover:bg-brand-red hover:text-white">
@@ -1534,7 +1547,7 @@ document.addEventListener("DOMContentLoaded", function () {
         closeButton.style.display = "none";
     });
     // open menu
-    
+
 
 
 });

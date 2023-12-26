@@ -74,3 +74,23 @@ function selectCourse(id) {
     var url = window.location.href;
     url.searchParams.append(id)
 }
+
+// open modal code
+function openModal() {
+    const modal = document.getElementById('modal');
+    modal.style.display = 'flex';
+  }
+  function closeModal() {
+    const modal = document.getElementById('modal');
+    modal.style.display = 'none';
+  }
+
+  // open modal code
+function openModal1() {
+    const modal1 = document.getElementById('modal1');
+    modal1.style.display = 'flex';
+  }
+  function closeModal1() {
+    const modal1 = document.getElementById('modal1');
+    modal1.style.display = 'none';
+  }
